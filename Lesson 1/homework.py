@@ -29,6 +29,7 @@
 
     - A (3,6); B (2,1) -> 5,09
     - A (7,-5); B (1,-1) -> 7,21'''
+import math
 
 
 def task1():
@@ -55,8 +56,56 @@ def task2():
 
 
 def task3():
-    a = 1
+    x = 0
+    y = 0
 
+    while x == 0:
+        x = int(input("Введите координату x: "))
+    while y == 0:
+        y = int(input("Введите координату y: "))
+
+    if x > 0:
+        if y > 0:
+            s = "I"
+        else:
+            s = "IV"
+    else:
+        if y > 0:
+            s = "II"
+        else:
+            s = "III"
+    print(f"Точка ({x}, {y}) лежит в {s} четверти")
+
+
+def task4():
+    s = 0
+
+    while not 0 < s < 5:
+        s = int(input("Введите номер четверти: "))
+
+    if s == 1:
+        x = ""
+        y = ""
+    elif s == 2:
+        x = "-"
+        y = ""
+    elif s == 3:
+        x = "-"
+        y = "-"
+    elif s == 4:
+        x = ""
+        y = "-"
+    print(f"В {s} четверти могут лежать точки x[0,{x}~] и y[0, {y}~]")
+
+
+def task5():
+    x1 = int(input("Введите координату x1: "))
+    y1 = int(input("Введите координату y1: "))
+    x2 = int(input("Введите координату x2: "))
+    y2 = int(input("Введите координату y2: "))
+
+    res = ((x2 - x1) * (x2 - x1)) + ((y2 - y1) * (y2 - y1))
+    print(f"Расстояние между точками {math.sqrt(res)}")
 
 task = int(input("Какую задачу проверить? "))
 
@@ -66,5 +115,9 @@ elif task == 2:
     task2()
 elif task == 3:
     task3()
+elif task == 4:
+    task4()
+elif task == 5:
+    task5()
 else:
     print("Пора спать")
