@@ -1,6 +1,7 @@
 from random import choices, randrange
 
-def Task1():
+
+def task1():
     d = float(input('Введите точность чиcла Пи: '))
     summa = 1
     n = 3
@@ -39,12 +40,12 @@ def prime_factors(number):
     return lst
 
 
-def Task2():
+def task2():
     num = int(input('Число = '))
     print(prime_factors(num))
 
 
-def Task3():
+def task3():
     n = int(input('Количество чисел в последовательности = '))
     lst = []
     lst_result = []
@@ -71,7 +72,7 @@ def add_to_file(str_data):
         output.write(str_data + '\n')
 
 
-def Task4():
+def task4():
     k = int(input('k = '))
 
     ls = []
@@ -108,17 +109,6 @@ def read_file(name):
         return lst
 
 
-def Task5():
-    lst_1 = read_file('file1.txt')
-    lst_2 = read_file('file2.txt')
-    if len(lst_1) != len(lst_2):
-        print('The contents of the files do not match!')
-        return
-    with open("task5.txt", "w", encoding="utf-8") as output:
-        for i in range(2):
-            output.write(lst_1[i].replace('= 0', '+ ').replace('\n', '') + lst_2[i])
-
-
 task = int(input("Какую задачу проверить? "))
 
 if task == 1:
@@ -129,7 +119,5 @@ elif task == 3:
     task3()
 elif task == 4:
     task4()
-elif task == 5:
-    task5()
 else:
     print("Пора спать")
