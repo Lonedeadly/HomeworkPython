@@ -1,4 +1,5 @@
 import random
+from builtins import range
 
 
 # Напишите программу, удаляющую из текста все слова, содержащие ""абв"".
@@ -128,16 +129,99 @@ def task2():
     start(use_bot, use_mind_bot)
 
 
+# Создайте программу для игры в ""Крестики-нолики"".
+def task3():
+    def raw_input(steps, sym):
+        valid = False
+        while not valid:
+            b = int(input(f"Куда ставим {sym} (0-8)? "))
+            if 0 <= b <= 8:
+                if steps[b] == " ":
+                    valid = True
+            else:
+                continue
+
+        return b
+
+    def print_board(step):
+        for i in range(3):
+            print(f'| {step[(i * 3) + 0]} | {step[(i * 3) + 1]} | {step[(i * 3) + 2]} |')
+            print('|---|---|---|')
+
+    def check_win(wins_row, step, sym):
+        for i in wins_row:
+            win = True
+            for a in i:
+                if not step[a] == sym:
+                    win = False
+                    break
+            if win:
+                break
+        return win
+
+    wins_row = ((0, 1, 2), (3, 4, 5), (6, 7, 8), (0, 3, 6), (1, 4, 7), (2, 5, 8), (0, 4, 8), (2, 4, 6))
+    steps = [" ", " ", " ", " ", " ", " ", " ", " ", " "]
+    print_board(steps)
+    end = False
+    shag = False
+    i = 0
+    while not end and not i == 9:
+        if shag:
+            sym = "o"
+        else:
+            sym = "x"
+        steps[raw_input(steps, sym)] = sym
+        print_board(steps)
+        end = check_win(wins_row, steps, sym)
+        shag = not shag
+        i += 1
+    else:
+        if not end and i == 10:
+            print("Ничья")
+        else:
+            print(f"Выйграл {sym}")
+
+
+def task4():
+    def coding(txt):
+        count = 1
+        res = ''
+        for i in range(len(txt) - 1):
+            if txt[i] == txt[i + 1]:
+                count += 1
+            else:
+                res = res + str(count) + txt[i]
+                count = 1
+        if count > 1 or (txt[len(txt) - 2] != txt[-1]):
+            res = res + str(count) + txt[-1]
+        return res
+
+    def decoding(txt):
+        number = ''
+        res = ''
+        for i in range(len(txt)):
+            if not txt[i].isalpha():
+                number += txt[i]
+            else:
+                res = res + txt[i] * int(number)
+                number = ''
+        return res
+
+    s = input("Введите текст для кодировки: ")
+    cod = coding(s)
+    print(f"Текст после кодировки: {cod}")
+    print(f"Текст после дешифровки: {decoding(cod)}")
+
 task = int(input("Какую задачу проверить? "))
 
 if task == 1:
     task1()
 elif task == 2:
     task2()
-# elif task == 3:
-#     task3()
-# elif task == 4:
-#     task4()
+elif task == 3:
+    task3()
+elif task == 4:
+    task4()
 # elif task == 5:
 #     task5()
 else:
