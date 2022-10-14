@@ -23,22 +23,16 @@ def task1():
 #   b) Подумайте как наделить бота ""интеллектом""
 def task2():
     def ask_current_amount_bot(step):
-        current_amount = 0
         if step.get('use_bot_mind'):
             total = step.get('total')
             max_step = step.get('max_step')
-            if total == max_step:
+            pos_step = total // (max_step + 1)
+            if total <= max_step:
                 current_amount = max_step
-                print("1 условие ")
-            elif total <= 2*(max_step+1) + max_step:
-                current_amount = random.randint(1, total - 2*(max_step+1))
-                print("2 условие ", total - 2*(max_step+1))
-            elif total - max_step <= max_step:
-                current_amount = random.randint(1, total - max_step)
-                print("3 условие ", total - max_step)
             else:
-                current_amount = random.randint(1, max_step)
-                print("4 условие ", max_step)
+                current_amount = total - (pos_step * (max_step + 1))
+            if current_amount == 0:
+                current_amount = random.randint(1, step.get('max_step'))
         else:
             current_amount = random.randint(1, step.get('max_step'))
 
@@ -64,12 +58,11 @@ def task2():
         return current_amount
 
     def next_step(step):
-
         current_amount = ask_current_amount(step)
-
         step.update(move_player1=not step.get('move_player1'))
         step.update(current_amount=current_amount)
         step.update(total=step.get('total') - current_amount)
+
         return step
 
     def start(use_bot, use_mind_bot):
